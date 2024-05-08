@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://7lqsmhhayu7g"]
+
+[ext_resource type="Script" path="res://scripts/Target.gd" id="1_ui4yt"]
+[ext_resource type="Texture2D" uid="uid://bmcvuct0kxx1m" path="res://assets/Empty target.png" id="2_f2a1o"]
+[ext_resource type="Texture2D" uid="uid://curcuvsbwbsqp" path="res://assets/light.png" id="3_ps5jr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1t4m4"]
+size = Vector2(16, 16)
+
+[node name="target" type="Node2D"]
+script = ExtResource("1_ui4yt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_f2a1o")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 16)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_1t4m4")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 0.0
+texture = ExtResource("3_ps5jr")
+texture_scale = 2.0

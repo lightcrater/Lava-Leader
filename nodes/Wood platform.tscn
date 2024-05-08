@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://cuhfevrbjhfii"]
+
+[ext_resource type="Script" path="res://scripts/Trench.gd" id="1_eoavm"]
+[ext_resource type="Texture2D" uid="uid://jr48e2mlddk3" path="res://assets/Wood.png" id="1_x06hn"]
+[ext_resource type="AudioStream" uid="uid://dljfdybqsjxpy" path="res://assets/audio/flow.ogg" id="3_re81q"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_eoavm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_x06hn")
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+
+[node name="up" type="RayCast2D" parent="Node2D"]
+target_position = Vector2(0, -16)
+collision_mask = 2
+
+[node name="down" type="RayCast2D" parent="Node2D"]
+target_position = Vector2(0, 16)
+collision_mask = 2
+
+[node name="left" type="RayCast2D" parent="Node2D"]
+target_position = Vector2(-16, 0)
+collision_mask = 2
+
+[node name="right" type="RayCast2D" parent="Node2D"]
+target_position = Vector2(16, 0)
+collision_mask = 2
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_re81q")
+volume_db = -16.053
+bus = &"sfx"

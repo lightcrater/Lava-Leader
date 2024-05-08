@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=3 uid="uid://b3fv0ntd8c0q7"]
+
+[ext_resource type="Script" path="res://scripts/Lava.gd" id="1_cd06e"]
+[ext_resource type="Texture2D" uid="uid://dbe2b2gyjdet3" path="res://assets/Lava.png" id="1_r8gf3"]
+[ext_resource type="Texture2D" uid="uid://c50da7to5awcx" path="res://assets/cooled lava.png" id="2_1xbb4"]
+[ext_resource type="Texture2D" uid="uid://curcuvsbwbsqp" path="res://assets/light.png" id="4_gg2hf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mjths"]
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_kt2to"]
+resource_name = "Cool"
+length = 5.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cooled:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(3.36358, 6.72717),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(5.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"cool"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 5.5),
+"transitions": PackedFloat32Array(3.36358, 1),
+"update": 0,
+"values": [0.5, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8ckb2"]
+_data = {
+"Cool": SubResource("Animation_kt2to")
+}
+
+[node name="Lava" type="Node2D" groups=["lava", "pausable"]]
+process_mode = 1
+script = ExtResource("1_cd06e")
+
+[node name="Lava" type="Sprite2D" parent="."]
+texture = ExtResource("1_r8gf3")
+
+[node name="Cooled" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("2_1xbb4")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_mjths")
+
+[node name="cooling" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8ckb2")
+}
+autoplay = "Cool"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.544974, 0.544974, 0.544974, 1)
+energy = 0.5
+shadow_enabled = true
+texture = ExtResource("4_gg2hf")
+texture_scale = 2.0

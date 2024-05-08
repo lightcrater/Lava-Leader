@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=3 uid="uid://dfmsoj8qbxcj3"]
+
+[ext_resource type="Script" path="res://scripts/Door.gd" id="1_s72jy"]
+[ext_resource type="Texture2D" uid="uid://behypidkt05gd" path="res://assets/Closed door.png" id="2_10fhi"]
+[ext_resource type="AudioStream" uid="uid://byafmpl33jlno" path="res://assets/audio/Door.ogg" id="3_2athf"]
+[ext_resource type="Texture2D" uid="uid://b2w37y6330ish" path="res://assets/Star.png" id="4_v1q58"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_otttu"]
+size = Vector2(14, 14)
+
+[sub_resource type="Gradient" id="Gradient_o1egp"]
+offsets = PackedFloat32Array(0.550505, 1)
+colors = PackedColorArray(0.89, 0.860333, 0, 1, 1, 0.682353, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cd5la"]
+gradient = SubResource("Gradient_o1egp")
+
+[sub_resource type="Curve" id="Curve_xa0ev"]
+_data = [Vector2(0, 0.692308), 0.0, 3.61239, 0, 0, Vector2(0.690265, 0), -3.16863, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_brr6p"]
+curve = SubResource("Curve_xa0ev")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8y8v7"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 9.24
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 39.36
+initial_velocity_max = 86.61
+gravity = Vector3(0, 98, 0)
+scale_curve = SubResource("CurveTexture_brr6p")
+color = Color(1, 1, 0.0117647, 1)
+color_ramp = SubResource("GradientTexture1D_cd5la")
+
+[node name="door" type="Node2D"]
+script = ExtResource("1_s72jy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_10fhi")
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_otttu")
+disabled = true
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_2athf")
+volume_db = 2.515
+bus = &"sfx"
+
+[node name="Stars" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_8y8v7")
+texture = ExtResource("4_v1q58")
+one_shot = true
+explosiveness = 1.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_door_entered"]

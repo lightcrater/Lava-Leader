@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2qopl7wac53l"]
+
+[ext_resource type="AudioStream" uid="uid://cutyjpf48qx4i" path="res://assets/audio/Ove Melaa - High Stakes,Low Chances.mp3" id="1_chpfq"]
+
+[node name="music" type="AudioStreamPlayer2D"]
+process_mode = 3
+stream = ExtResource("1_chpfq")
+volume_db = -3.68
+bus = &"music"

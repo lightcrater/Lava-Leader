@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://bq4htqlamycv2"]
+
+[ext_resource type="Script" path="res://scripts/Trench.gd" id="1_8ma7w"]
+[ext_resource type="Texture2D" uid="uid://csrhnd8bswe00" path="res://assets/Trench.png" id="1_ht3p4"]
+[ext_resource type="AudioStream" uid="uid://dljfdybqsjxpy" path="res://assets/audio/flow.ogg" id="3_7m3vo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6j653"]
+size = Vector2(16, 16)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_8ma7w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ht3p4")
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+
+[node name="up" type="RayCast2D" parent="Node2D"]
+target_position = Vector2(0, -16)
+collision_mask = 2
+
+[node name="down" type="RayCast2D" parent="Node2D"]
+target_position = Vector2(0, 16)
+collision_mask = 2
+
+[node name="left" type="RayCast2D" parent="Node2D"]
+target_position = Vector2(-16, 0)
+collision_mask = 2
+
+[node name="right" type="RayCast2D" parent="Node2D"]
+target_position = Vector2(16, 0)
+collision_mask = 2
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_6j653")
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_7m3vo")
+volume_db = -14.652
+pitch_scale = 0.85
+bus = &"sfx"

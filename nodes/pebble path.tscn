@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://b11m1a2uuf6ls"]
+
+[ext_resource type="Script" path="res://scripts/pebble path.gd" id="1_0v3ko"]
+[ext_resource type="Texture2D" uid="uid://bn4bn260e8k3d" path="res://assets/Pebble path.png" id="1_yw74i"]
+[ext_resource type="Texture2D" uid="uid://csrhnd8bswe00" path="res://assets/Trench.png" id="2_5rc24"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6uoi1"]
+size = Vector2(6, 6)
+
+[node name="Pebble path" type="Node2D"]
+script = ExtResource("1_0v3ko")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_5rc24")
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+
+[node name="up" type="RayCast2D" parent="Node2D"]
+target_position = Vector2(0, -16)
+collision_mask = 2
+
+[node name="down" type="RayCast2D" parent="Node2D"]
+target_position = Vector2(0, 16)
+collision_mask = 2
+
+[node name="left" type="RayCast2D" parent="Node2D"]
+target_position = Vector2(-16, 0)
+collision_mask = 2
+
+[node name="right" type="RayCast2D" parent="Node2D"]
+target_position = Vector2(16, 0)
+collision_mask = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture = ExtResource("1_yw74i")
+
+[node name="Area2D" type="Area2D" parent="." groups=["trench"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_6uoi1")
+
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,0 +1,8 @@
+[Dolphin]
+SortHiddenLast=true
+Timestamp=2024,5,5,12,29,34.604
+Version=4
+VisibleRoles=Icons_text,Icons_size,Icons_dimensions,Icons_duration
+
+[Settings]
+HiddenFilesShown=true

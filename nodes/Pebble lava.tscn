@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://bd8yirfx7mj00"]
+
+[ext_resource type="Script" path="res://scripts/Lava.gd" id="1_pabkr"]
+[ext_resource type="Texture2D" uid="uid://dbe2b2gyjdet3" path="res://assets/Lava.png" id="1_wf7yx"]
+[ext_resource type="Texture2D" uid="uid://c50da7to5awcx" path="res://assets/cooled lava.png" id="2_8vxtc"]
+[ext_resource type="Texture2D" uid="uid://bn4bn260e8k3d" path="res://assets/Pebble path.png" id="3_32qod"]
+
+[sub_resource type="Animation" id="Animation_kt2to"]
+resource_name = "Cool"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cooled:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(3.36358, 6.72717),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"cool"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PointLight2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(3.36358, 1),
+"update": 0,
+"values": [0.5, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8ckb2"]
+_data = {
+"Cool": SubResource("Animation_kt2to")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d7ale"]
+size = Vector2(16, 16)
+
+[node name="Node2D" type="Node2D" groups=["lava", "trench"]]
+process_mode = 1
+script = ExtResource("1_pabkr")
+
+[node name="Lava" type="Sprite2D" parent="."]
+texture = ExtResource("1_wf7yx")
+
+[node name="Cooled" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("2_8vxtc")
+
+[node name="cooling" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8ckb2")
+}
+autoplay = "Cool"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+z_as_relative = false
+texture = ExtResource("3_32qod")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_d7ale")

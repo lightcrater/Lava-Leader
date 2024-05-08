@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://r51jbadunj2f"]
+
+[ext_resource type="FontFile" uid="uid://ccy516ls3uwtb" path="res://assets/Kenney Mini.ttf" id="1_udn78"]
+
+[sub_resource type="Theme" id="Theme_dt341"]
+default_font = ExtResource("1_udn78")
+default_font_size = 32
+
+[node name="Pause" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 256.0
+color = Color(0, 0, 0, 0.313726)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 256.0
+theme = SubResource("Theme_dt341")
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
